@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 
 public class SierpinskiTriangles extends JPanel {
     private static final int SIZE = 1000;
-    private static final int BASE_LEVEL = 1;
+    private static final int BASE_LEVEL = 10;
 
     public SierpinskiTriangles(){
         setPreferredSize(new Dimension(SIZE, SIZE));
@@ -44,10 +44,16 @@ public class SierpinskiTriangles extends JPanel {
            
            g2.setPaint(Color.BLUE);
            g2.setStroke(new BasicStroke(2));
-           g2.fill(poly);
+           g2.draw(poly);
         }else{
             //recursive case
+            Point2D p4 = midpoint(p1, p2);
+            Point2D p5 = midpoint(p2, p3);
+            Point2D p6 = midpoint(p1, p3);
             
+            drawTriangleLevel(g2, level - 1, p1, p4, p6);
+            drawTriangleLevel(g2, level - 1, p4, p2, p5);
+            drawTriangleLevel(g2, level - 1, p6, p5, p3);
         }
     }
     
