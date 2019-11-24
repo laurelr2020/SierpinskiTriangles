@@ -45,10 +45,24 @@ public class SierpinskiTriangles extends JPanel {
            g2.setPaint(Color.BLUE);
            g2.setStroke(new BasicStroke(2));
            g2.fill(poly);
+        }else{
+            //recursive case
+            
         }
     }
     
-    
+    private Point2D midpoint(Point2D a, Point2D b){
+        double aX = a.getX();
+        double aY = a.getY();
+        double bX = b.getX();
+        double bY = b.getY();
+        
+        double midX = (aX + bX) / 2;
+        double midY = (aY + bY) / 2;
+        Point2D midpoint = new Point2D.Double(midX, midY);
+
+        return midpoint;
+    }
     
     /***********************************************
      * Do NOT change or delete anything below here!
