@@ -86,29 +86,36 @@ public class SierpinskiTriangles extends JPanel implements KeyListener{
         return midpoint;
     }
     
-    public void keyPressed(KeyEvent evt) {}
-    public void keyReleased(KeyEvent evt) {}
-    
-    @Override
-    public void keyTyped(KeyEvent evt) {
-        char ch = evt.getKeyChar();
+    public void keyPressed(KeyEvent evt) {
+        int key = evt.getKeyChar();
         Graphics2D graphics = (Graphics2D) getGraphics();
 
+        switch (key) {
+            case KeyEvent.VK_UP: 
+                if(intialLevel <= 10){
+                    repaint();
+                    intialLevel += 1;
+                    drawTriangleLevel(graphics, intialLevel, pointOne, pointTwo, pointThree);
+                    System.out.println(intialLevel);
+                }
+                break;
+            case KeyEvent.VK_DOWN: 
+                if(intialLevel > 1) {
+                    repaint();
+                    intialLevel -= 1;                          
+                    drawTriangleLevel(graphics, intialLevel, pointOne, pointTwo, pointThree);
+                    System.out.println(intialLevel);                          
+                }
+                break;
+        }
+
+    }
+    public void keyReleased(KeyEvent evt) {}
+    
+    public void keyTyped(KeyEvent evt) {
+        char ch = evt.getKeyChar();
+        
         switch (Character.toLowerCase(ch)) {
-            case 'i': if(intialLevel <= 10){
-                          repaint();
-                          intialLevel += 1;
-                          drawTriangleLevel(graphics, intialLevel, pointOne, pointTwo, pointThree);
-                          System.out.println(intialLevel);
-                      }
-                      break;
-            case 'o': if(intialLevel > 1) {
-                          repaint();
-                          intialLevel -= 1;                          
-                          drawTriangleLevel(graphics, intialLevel, pointOne, pointTwo, pointThree);
-                          System.out.println(intialLevel);                          
-                      }
-                      break;                      
             case 'q': System.exit(0);
         }
     } 
