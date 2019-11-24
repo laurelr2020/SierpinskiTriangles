@@ -3,7 +3,7 @@ package sierpinskitriangles;
 import java.awt.*;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.geom.Line2D;
+import java.awt.geom.Point2D;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -12,12 +12,11 @@ import javax.swing.JPanel;
  */
 
 public class SierpinskiTriangles extends JPanel {
-    private static final int WIDTH = 1000;
-    private static final int HEIGHT = 600;
+    private static final int SIZE = 1000;
     private static final int BASE_LEVEL = 1;
 
     public SierpinskiTriangles(){
-        setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        setPreferredSize(new Dimension(SIZE, SIZE));
         setName("CSC 380 Graphics Problem 2 -- Regan and Joe");
         setUp();
     }
@@ -27,18 +26,25 @@ public class SierpinskiTriangles extends JPanel {
         super.paintComponent(g); 
         Graphics2D g2 = (Graphics2D) g.create();
         
-        Line2D line1 = new Line2D.Double(0.0, 200.0, 100.0, 200.0);
-        Line2D line2 = new Line2D.Double(100.0, 300.0, 200.0, 300.0);
-        Line2D line3 = new Line2D.Double(200.0, 400.0, 300.0, 400.0);
-
-        drawTriangleLevel(g2, BASE_LEVEL, line1, line2, line3);
+        int triangleHeight = (int) Math.round(SIZE * Math.sqrt(3.0) / 2.0); 
+        Point2D pointOne = new Point(0, triangleHeight);
+        Point2D pointTwo = new Point(SIZE / 2, 0);
+        Point2D pointThree = new Point(SIZE, triangleHeight);
+        
+        drawTriangleLevel(g2, BASE_LEVEL, pointOne, pointTwo, pointThree);
     }
     
-    private void drawTriangleLevel(Graphics2D g2, int level, Line2D line1, Line2D line2, Line2D line3){
+    private void drawTriangleLevel(Graphics2D g2, int level, Point2D p1, Point2D p2, Point2D p3){
         if(level == 1){
-            //base case
-            Line2D line = new Line2D.Double();
+           //base case
+           Polygon poly = new Polygon();
+           poly.addPoint((int) p1.getX(), (int) p1.getY());
+           poly.addPoint((int) p2.getX(), (int) p2.getY());
+           poly.addPoint((int) p3.getX(), (int) p3.getY());
            
+           g2.setPaint(Color.BLUE);
+           g2.setStroke(new BasicStroke(2));
+           g2.fill(poly);
         }
     }
     
