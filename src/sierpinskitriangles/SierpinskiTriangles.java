@@ -21,11 +21,10 @@ public class SierpinskiTriangles extends JPanel implements KeyListener{
     private Point2D pointOne = new Point(0, triangleHeight);
     private Point2D pointTwo = new Point(SIZE / 2, 0);
     private Point2D pointThree = new Point(SIZE, triangleHeight);
-    private Graphics2D g2;
     
     public SierpinskiTriangles(){
         setPreferredSize(new Dimension(SIZE, SIZE));
-        setName("CSC 380 Graphics Problem 2 -- Regan and Joe");
+        setName("CSC 380 Graphics Project 2 -- Regan and Joe");
         setUp();
         
         addKeyListener(this);
@@ -82,17 +81,18 @@ public class SierpinskiTriangles extends JPanel implements KeyListener{
     @Override
     public void keyTyped(KeyEvent evt) {
         char ch = evt.getKeyChar();
-        
+        Graphics2D graphics = (Graphics2D) getGraphics();
+
         switch (Character.toLowerCase(ch)) {
-            case 'i': if(intialLevel < 20){
+            case 'i': if(intialLevel <= 10){
                           intialLevel += 1;
-                          drawTriangleLevel(g2, intialLevel, pointOne, pointTwo, pointThree);
+                          drawTriangleLevel(graphics, intialLevel, pointOne, pointTwo, pointThree);
                           System.out.println(intialLevel);
                       }
                       break;
-            case 'o': if(intialLevel > 0) {
+            case 'o': if(intialLevel > 1) {
                           intialLevel -= 1;                          
-                          drawTriangleLevel(g2, intialLevel - 1, pointOne, pointTwo, pointThree);
+                          drawTriangleLevel(graphics, intialLevel, pointOne, pointTwo, pointThree);
                           System.out.println(intialLevel);                          
                       }
                       break;                      
