@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 
 /**
  * @author reganlaurell
+ * references: https://courses.cs.washington.edu/courses/cse143/19sp/lectures/Sierpinski.java
  */
 
 public class SierpinskiTriangles extends JPanel {
