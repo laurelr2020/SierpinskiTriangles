@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 
 public class SierpinskiTriangles extends JPanel {
     private static final int SIZE = 1000;
-    private static final int BASE_LEVEL = 10;
+    private static final int BASE_LEVEL = 1;
 
     public SierpinskiTriangles(){
         setPreferredSize(new Dimension(SIZE, SIZE));
