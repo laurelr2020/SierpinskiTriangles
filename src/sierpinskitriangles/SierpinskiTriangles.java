@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.geom.Point2D;
+import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -47,7 +48,8 @@ public class SierpinskiTriangles extends JPanel implements KeyListener{
            poly.addPoint((int) p2.getX(), (int) p2.getY());
            poly.addPoint((int) p3.getX(), (int) p3.getY());
            
-           g2.setPaint(Color.BLUE);
+           Color randomColor = getRandomColor();
+           g2.setPaint(randomColor);
            g2.setStroke(new BasicStroke(2));
            g2.draw(poly);
         }else{
@@ -60,6 +62,15 @@ public class SierpinskiTriangles extends JPanel implements KeyListener{
             drawTriangleLevel(g2, level - 1, p4, p2, p5);
             drawTriangleLevel(g2, level - 1, p6, p5, p3);
         }
+    }
+    
+    private Color getRandomColor(){
+        Random random = new Random();
+        int red = random.nextInt(256);
+        int blue = random.nextInt(256);
+        int green = random.nextInt(256);
+        
+        return new Color(red, green, blue);
     }
     
     private Point2D midpoint(Point2D a, Point2D b){
@@ -85,12 +96,14 @@ public class SierpinskiTriangles extends JPanel implements KeyListener{
 
         switch (Character.toLowerCase(ch)) {
             case 'i': if(intialLevel <= 10){
+                          repaint();
                           intialLevel += 1;
                           drawTriangleLevel(graphics, intialLevel, pointOne, pointTwo, pointThree);
                           System.out.println(intialLevel);
                       }
                       break;
             case 'o': if(intialLevel > 1) {
+                          repaint();
                           intialLevel -= 1;                          
                           drawTriangleLevel(graphics, intialLevel, pointOne, pointTwo, pointThree);
                           System.out.println(intialLevel);                          
