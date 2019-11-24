@@ -3,6 +3,8 @@ package sierpinskitriangles;
 import java.awt.*;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.geom.Point2D;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -12,14 +14,22 @@ import javax.swing.JPanel;
  * references: https://courses.cs.washington.edu/courses/cse143/19sp/lectures/Sierpinski.java
  */
 
-public class SierpinskiTriangles extends JPanel {
+public class SierpinskiTriangles extends JPanel implements KeyListener{
     private static final int SIZE = 1000;
-    private static final int BASE_LEVEL = 1;
-
+    private int intialLevel = 1;
+    private int triangleHeight = (int) Math.round(SIZE * Math.sqrt(3.0) / 2.0); 
+    private Point2D pointOne = new Point(0, triangleHeight);
+    private Point2D pointTwo = new Point(SIZE / 2, 0);
+    private Point2D pointThree = new Point(SIZE, triangleHeight);
+    private Graphics2D g2;
+    
     public SierpinskiTriangles(){
         setPreferredSize(new Dimension(SIZE, SIZE));
         setName("CSC 380 Graphics Problem 2 -- Regan and Joe");
         setUp();
+        
+        addKeyListener(this);
+        requestFocusInWindow();
     }
     
     @Override
@@ -27,15 +37,10 @@ public class SierpinskiTriangles extends JPanel {
         super.paintComponent(g); 
         Graphics2D g2 = (Graphics2D) g.create();
         
-        int triangleHeight = (int) Math.round(SIZE * Math.sqrt(3.0) / 2.0); 
-        Point2D pointOne = new Point(0, triangleHeight);
-        Point2D pointTwo = new Point(SIZE / 2, 0);
-        Point2D pointThree = new Point(SIZE, triangleHeight);
-        
-        drawTriangleLevel(g2, BASE_LEVEL, pointOne, pointTwo, pointThree);
+        drawTriangleLevel(g2, intialLevel, pointOne, pointTwo, pointThree);
     }
     
-    private void drawTriangleLevel(Graphics2D g2, int level, Point2D p1, Point2D p2, Point2D p3){
+    public void drawTriangleLevel(Graphics2D g2, int level, Point2D p1, Point2D p2, Point2D p3){
         if(level == 1){
            //base case
            Polygon poly = new Polygon();
@@ -71,6 +76,30 @@ public class SierpinskiTriangles extends JPanel {
         return midpoint;
     }
     
+    public void keyPressed(KeyEvent evt) {}
+    public void keyReleased(KeyEvent evt) {}
+    
+    @Override
+    public void keyTyped(KeyEvent evt) {
+        char ch = evt.getKeyChar();
+        
+        switch (Character.toLowerCase(ch)) {
+            case 'i': if(intialLevel < 20){
+                          intialLevel += 1;
+                          drawTriangleLevel(g2, intialLevel, pointOne, pointTwo, pointThree);
+                          System.out.println(intialLevel);
+                      }
+                      break;
+            case 'o': if(intialLevel > 0) {
+                          intialLevel -= 1;                          
+                          drawTriangleLevel(g2, intialLevel - 1, pointOne, pointTwo, pointThree);
+                          System.out.println(intialLevel);                          
+                      }
+                      break;                      
+            case 'q': System.exit(0);
+        }
+    } 
+
     /***********************************************
      * Do NOT change or delete anything below here!
      ***********************************************/
