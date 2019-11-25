@@ -3,12 +3,15 @@ package sierpinskitriangles;
 import java.awt.*;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.geom.Point2D;
 import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 /**
  * @author reganlaurell
@@ -22,12 +25,17 @@ public class SierpinskiTriangles extends JPanel implements KeyListener{
     private Point2D pointOne = new Point(0, triangleHeight);
     private Point2D pointTwo = new Point(SIZE / 2, 0);
     private Point2D pointThree = new Point(SIZE, triangleHeight);
-    
+    private int frameNumber;  // A counter that increases by one in each frame.
+    private long elapsedTimeMillis;  // The time, in milliseconds, since the animation started.
+    private int timeStep;  // delay, in milliseconds, between repaints -- used by the Timer object    
+    private boolean timerRunning = false;
     public SierpinskiTriangles(){
         setPreferredSize(new Dimension(SIZE, SIZE));
         setName("CSC 380 Graphics Project 2 -- Regan and Joe");
         setUp();
         
+        timeStep = 400; 
+
         addKeyListener(this);
         requestFocusInWindow();
     }
@@ -86,6 +94,19 @@ public class SierpinskiTriangles extends JPanel implements KeyListener{
         return midpoint;
     }
     
+    public void setUpAndStartTimer(int timeStep) {
+        Timer animationTimer;
+        final long startTime = System.currentTimeMillis();
+        animationTimer = new Timer(timeStep, new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                frameNumber++;
+                elapsedTimeMillis = System.currentTimeMillis() - startTime;
+                repaint();
+            }
+        });
+        animationTimer.start();
+    }
+    
     public void keyPressed(KeyEvent evt) {}
     public void keyReleased(KeyEvent evt) {}
     
@@ -108,7 +129,16 @@ public class SierpinskiTriangles extends JPanel implements KeyListener{
                           drawTriangleLevel(graphics, intialLevel, pointOne, pointTwo, pointThree);
                           System.out.println(intialLevel);                          
                       }
-                      break;                      
+                      break;  
+            case 't':
+                if(!timerRunning){
+                    timerRunning = true;
+                    setUpAndStartTimer(timeStep);                                     
+                }
+                else{
+                    timerRunning = false;
+                }
+                break;
             case 'q': System.exit(0);
         }
     } 
