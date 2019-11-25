@@ -87,7 +87,7 @@ public class SierpinskiTriangles extends JPanel implements KeyListener{
     }
     
     public void keyPressed(KeyEvent evt) {
-        int key = evt.getKeyChar();
+        int key = evt.getKeyCode();
         Graphics2D graphics = (Graphics2D) getGraphics();
 
         switch (key) {
