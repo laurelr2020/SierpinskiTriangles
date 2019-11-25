@@ -31,6 +31,7 @@ public class SierpinskiTriangles extends JPanel implements KeyListener{
         setPreferredSize(new Dimension(SIZE, SIZE));
         setName("CSC 380 Graphics Project 2 -- Regan and Joe");
         setUp();
+        setBackground(Color.WHITE);
         
         addKeyListener(this);
         requestFocusInWindow();
@@ -131,6 +132,12 @@ public class SierpinskiTriangles extends JPanel implements KeyListener{
         switch (Character.toLowerCase(ch)) {
             case 'b':
                 whiteBackground = !whiteBackground;
+                
+                if (whiteBackground) 
+                    setBackground(Color.WHITE);
+                else 
+                    setBackground(Color.BLACK);
+                
                 repaint();
                 break;
             case 'q': System.exit(0);
