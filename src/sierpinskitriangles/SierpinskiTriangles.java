@@ -108,8 +108,8 @@ public class SierpinskiTriangles extends JPanel implements KeyListener{
                 }
                 break;
         }
-
     }
+    
     public void keyReleased(KeyEvent evt) {}
     
     public void keyTyped(KeyEvent evt) {
