@@ -66,9 +66,9 @@ public class SierpinskiTriangles extends JPanel implements KeyListener{
     
     private Color getRandomColor(){
         Random random = new Random();
-        int red = random.nextInt(256);
-        int blue = random.nextInt(256);
-        int green = random.nextInt(256);
+        int red = random.nextInt(225);
+        int blue = random.nextInt(225);
+        int green = random.nextInt(225);
         
         return new Color(red, green, blue);
     }
