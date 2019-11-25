@@ -17,11 +17,15 @@ import javax.swing.JPanel;
 
 public class SierpinskiTriangles extends JPanel implements KeyListener{
     private static final int SIZE = 1000;
+    
     private int intialLevel = 1;
     private int triangleHeight = (int) Math.round(SIZE * Math.sqrt(3.0) / 2.0); 
+    
     private Point2D pointOne = new Point(0, triangleHeight);
     private Point2D pointTwo = new Point(SIZE / 2, 0);
     private Point2D pointThree = new Point(SIZE, triangleHeight);
+    
+    private boolean whiteBackground = true;
     
     public SierpinskiTriangles(){
         setPreferredSize(new Dimension(SIZE, SIZE));
@@ -48,7 +52,7 @@ public class SierpinskiTriangles extends JPanel implements KeyListener{
            poly.addPoint((int) p2.getX(), (int) p2.getY());
            poly.addPoint((int) p3.getX(), (int) p3.getY());
            
-           Color randomColor = getRandomColor();
+           Color randomColor = whiteBackground ? getRandomColorForWhiteBackground() : getRandomColorForBlackBackground();
            g2.setPaint(randomColor);
            g2.setStroke(new BasicStroke(2));
            g2.draw(poly);
@@ -64,11 +68,20 @@ public class SierpinskiTriangles extends JPanel implements KeyListener{
         }
     }
     
-    private Color getRandomColor(){
+    private Color getRandomColorForWhiteBackground(){
         Random random = new Random();
         int red = random.nextInt(225);
         int blue = random.nextInt(225);
         int green = random.nextInt(225);
+        
+        return new Color(red, green, blue);
+    }
+    
+    private Color getRandomColorForBlackBackground(){
+        Random random = new Random();
+        int red = random.nextInt(225) + 30;
+        int blue = random.nextInt(225) + 30;
+        int green = random.nextInt(225) + 30;
         
         return new Color(red, green, blue);
     }
@@ -116,6 +129,10 @@ public class SierpinskiTriangles extends JPanel implements KeyListener{
         char ch = evt.getKeyChar();
         
         switch (Character.toLowerCase(ch)) {
+            case 'b':
+                whiteBackground = !whiteBackground;
+                repaint();
+                break;
             case 'q': System.exit(0);
         }
     } 
