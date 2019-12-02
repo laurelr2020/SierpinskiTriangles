@@ -32,6 +32,8 @@ public class SierpinskiTriangles extends JPanel implements KeyListener{
     private long elapsedTimeMillis;  // The time, in milliseconds, since the animation started.
     private int timeStep;  // delay, in milliseconds, between repaints -- used by the Timer object
     private boolean timerRunning = false;
+    private int timerInitialMax = 10;
+    private Timer animationTimer;
 
     private boolean whiteBackground = true;
 
@@ -111,12 +113,35 @@ public class SierpinskiTriangles extends JPanel implements KeyListener{
     }
 
     public void setUpAndStartTimer(int timeStep) {
-        Timer animationTimer;
+        
+        Graphics2D graphics = (Graphics2D) getGraphics();
         final long startTime = System.currentTimeMillis();
         animationTimer = new Timer(timeStep, new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 frameNumber++;
                 elapsedTimeMillis = System.currentTimeMillis() - startTime;
+                
+                if(intialLevel <= timerInitialMax && timerInitialMax == 10){
+                    repaint();
+                    intialLevel += 1;
+                    drawTriangleLevel(graphics, intialLevel, pointOne, pointTwo, pointThree);
+                    System.out.println(intialLevel);
+                }
+                else if (intialLevel > timerInitialMax && timerInitialMax == 1){
+                    repaint();
+                    intialLevel -= 1;
+                    drawTriangleLevel(graphics, intialLevel, pointOne, pointTwo, pointThree);
+                    System.out.println(intialLevel);
+                }
+                else{
+                    if(timerInitialMax == 10){
+                        timerInitialMax = 1;
+                    }
+                    else{
+                        timerInitialMax = 10;
+                    }
+                }
+                
                 repaint();
             }
         });
@@ -160,6 +185,7 @@ public class SierpinskiTriangles extends JPanel implements KeyListener{
                 }
                 else{
                     timerRunning = false;
+                    animationTimer.stop();
                 }
                 break;
             case 'b':
