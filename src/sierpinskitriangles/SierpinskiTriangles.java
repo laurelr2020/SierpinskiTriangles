@@ -14,7 +14,8 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 /**
- * @author reganlaurell
+ * CSC 380 Project 2 
+ * Regan Laurell and Joe Hoffman
  * references: https://courses.cs.washington.edu/courses/cse143/19sp/lectures/Sierpinski.java
  */
 
